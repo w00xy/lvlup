@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+.auth-container {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, #212426, #17151C);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.auth-header {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 4rem;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.auth-content {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    border-color: #222822;
+}
+
+.create-account-link {
+    display: inline-block;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    align-self: flex-end;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.create-account-link:hover {
+    background: #FFFFFF;
+    color: #17151C;
+}
+
+/* Адаптивная верстка */
+@media (max-width: 768px) {
+    .auth-content {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    .auth-title {
+        font-size: 28px;
+    }
+
+    .form-group label {
+        font-size: 18px;
+    }
+
+    .auth-input {
+        font-size: 16px;
+    }
+
+    .create-account-link {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 24px;
+    }
+
+    .logo {
+        height: 40px;
+    }
+} 

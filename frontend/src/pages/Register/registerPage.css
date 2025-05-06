@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+
+.auth-content {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    border-color: #6c8d6e;
+}
+
+.submit-button {
+    padding: 1rem 2rem;
+    font-size: 18px;
+    font-weight: 500;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    background: transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
+    margin-top: 1rem;
+}
+
+.submit-button:hover {
+    background: #FFFFFF;
+    color: #17151C;
+}
+
+.switch-auth-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    align-self: center;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.underline {
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+.underline:hover {
+    color: #817575;
+}
+
+/* Адаптивная верстка */
+@media (max-width: 768px) {
+    .auth-content {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    .auth-title {
+        font-size: 28px;
+    }
+
+    .form-group label {
+        font-size: 18px;
+    }
+
+    .auth-input {
+        font-size: 16px;
+    }
+
+    .submit-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 24px;
+    }
+
+    .logo {
+        height: 40px;
+    }
+} 
