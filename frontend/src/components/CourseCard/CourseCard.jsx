@@ -1,9 +1,9 @@
 import React from 'react';
 import './courseCard.css';
 
-const CourseCard = ({ title, date, image, category }) => {
+const CourseCard = ({ id, title, date, image, category, onClick }) => {
     return (
-        <div className="course-card">
+        <div className="course-card" onClick={onClick}>
             <div className="course-info">
                 <h3 className="course-title">{title}</h3>
                 <p className="course-date">{date}</p>

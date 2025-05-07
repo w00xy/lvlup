@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './coursesPage.css';
 import Header from '../../components/Header/Header';
 import CoursesList from '../../components/CoursesList/CoursesList';
 
 const CoursesPage = () => {
+    const navigate = useNavigate();
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -28,6 +30,10 @@ const CoursesPage = () => {
         };
     }, [lastScrollY]);
 
+    const handleAddCourse = () => {
+        navigate('/courses/create');
+    };
+
     return (
         <div className="courses-container">
             <Header activePage="courses" />
@@ -40,7 +46,7 @@ const CoursesPage = () => {
                 <CoursesList />
 
                 <div className={`add-course-container ${isButtonVisible ? 'visible' : ''}`}>
-                    <button className="add-course-button">
+                    <button className="add-course-button" onClick={handleAddCourse}>
                         Добавить курс
                     </button>
                 </div>
