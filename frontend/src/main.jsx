@@ -8,6 +8,8 @@ import HelloPage from './pages/Hello/HelloPage.jsx'
 import AufPage from './pages/Auth/AufPage.jsx'
 import RegisterPage from './pages/Register/RegisterPage.jsx'
 import CoursesPage from './pages/Courses/CoursesPage.jsx'
+import CreateCoursePage from './pages/CreateCourse/CreateCoursePage.jsx'
+import CoursePage from './pages/Course/CoursePage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')).render(
         <Route path='/login' element={<AufPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/courses' element={<CoursesPage />} />
+        <Route path='/courses/create' element={<CreateCoursePage />} />
+        <Route path='/courses/:id' element={<CoursePage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
