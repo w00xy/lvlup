@@ -1,0 +1,18 @@
+.courses-list-container {
+    flex: 1;
+    width: 100%;
+}
+
+.courses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    min-height: 0; /* Важно для корректного скролла */
+}
+
+@media (max-width: 768px) {
+    .courses-list {
+        grid-template-columns: 1fr;
+    }
+} 
