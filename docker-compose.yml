@@ -22,6 +22,22 @@ services:
       retries: 3
       start_period: 10s
 
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - /app/node_modules
+    environment:
+      - API_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - lvlup-network
+    restart: unless-stopped
+
 volumes:
   static_volume:
 
