@@ -121,4 +121,29 @@
     .logo {
         height: 40px;
     }
+}
+
+.error-message {
+    color: #ff4444;
+    background-color: #ffe5e5;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.password-hint {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+}
+
+.field-error {
+    color: #ff4444;
+    font-size: 0.8em;
+    margin-top: 4px;
+}
+
+.auth-input.error {
+    border-color: #ff4444;
 } 
