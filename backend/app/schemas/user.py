@@ -10,9 +10,14 @@ class UserCreate(UserBase):
     password: str
     
     @validator('password')
-    def password_min_length(cls, v):
+    def validate_password(cls, v):
         if len(v) < 8:
             raise ValueError('Пароль должен содержать минимум 8 символов')
+        # Можно добавить дополнительные проверки:
+        # if not any(c.isupper() for c in v):
+        #     raise ValueError('Пароль должен содержать хотя бы одну заглавную букву')
+        # if not any(c.isdigit() for c in v):
+        #     raise ValueError('Пароль должен содержать хотя бы одну цифру')
         return v
 
 class UserUpdate(BaseModel):

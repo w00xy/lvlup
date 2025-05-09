@@ -23,11 +23,10 @@
 }
 
 .courses-header {
-    margin: 2rem 0;
+    margin: 5rem 0;
     position: sticky;
-    top: 80px;
+    top: 120px;
     z-index: 2;
-    padding: 1rem 0;
 }
 
 .page-title {
@@ -86,6 +85,7 @@
 /* Add button */
 .add-course-container {
     position: fixed;
+    width: fit-content;
     bottom: -100px; /* Начальная позиция за пределами экрана */
     left: 50%;
     transform: translateX(-50%);
@@ -133,7 +133,7 @@
     }
 
     .add-course-container {
-        width: calc(100% - 2rem);
+        /* width: calc(100% - 2rem); */
         display: flex;
         justify-content: center;
     }
