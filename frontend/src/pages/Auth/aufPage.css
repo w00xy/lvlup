@@ -139,4 +139,13 @@
     .logo {
         height: 40px;
     }
+}
+
+.error-message {
+    color: #ff4444;
+    background-color: #ffe5e5;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
 } 

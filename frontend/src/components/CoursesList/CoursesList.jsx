@@ -1,6 +1,7 @@
 import React from 'react';
 import './coursesList.css';
 import CourseCard from '../CourseCard/CourseCard';
+import { useNavigate } from 'react-router-dom';
 
 // Временные моки для курсов
 const defaultCourses = [
@@ -56,16 +57,22 @@ const defaultCourses = [
 ];
 
 const CoursesList = ({ courses = defaultCourses }) => {
+    const navigate = useNavigate();
+    const handleCardClick = (id) => {
+        navigate(`/courses/${id}`);
+    };
     return (
         <div className="courses-list-container">
             <div className="courses-list">
                 {courses.map(course => (
                     <CourseCard
                         key={course.id}
+                        id={course.id}
                         title={course.title}
                         date={course.date}
                         image={course.image}
                         category={course.category}
+                        onClick={() => handleCardClick(course.id)}
                     />
                 ))}
             </div>
