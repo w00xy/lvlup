@@ -24,6 +24,7 @@ class CourseResponse(BaseModel):
     user_id: int
     course_name: str
     category_id: int
+    category_name: Optional[str] = None
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
     course_image: Optional[str] = None
@@ -42,7 +43,6 @@ class CourseResponse(BaseModel):
 
 class CourseDetailResponse(CourseResponse):
     user_name: str
-    category_name: str
     
     class Config:
         from_attributes = True

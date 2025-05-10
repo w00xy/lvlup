@@ -180,9 +180,59 @@ class CourseRepository(BaseRepository[Course]):
         result = await self.session.execute(stmt)
         return list(result.scalars().all())
     
+    async def get_multi_with_category(self, skip: int = 0, limit: int = 100) -> List[Dict[str, Any]]:
+        """Получение списка курсов с информацией о категориях"""
+        stmt = (
+            select(Course, Category.name.label("category_name"))
+            .join(Category, Course.category_id == Category.category_id)
+            .offset(skip)
+            .limit(limit)
+        )
+        result = await self.session.execute(stmt)
+        courses = []
+        for row in result:
+            course_dict = row[0].__dict__
+            course_dict["category_name"] = row[1]
+            courses.append(course_dict)
+        return courses
+
+    async def filter_with_category(self, **filters) -> List[Dict[str, Any]]:
+        """Фильтрация курсов с информацией о категориях"""
+        stmt = (
+            select(Course, Category.name.label("category_name"))
+            .join(Category, Course.category_id == Category.category_id)
+        )
+        
+        if "category_id" in filters:
+            stmt = stmt.where(Course.category_id == filters["category_id"])
+        if "user_id" in filters:
+            stmt = stmt.where(Course.user_id == filters["user_id"])
+            
+        result = await self.session.execute(stmt)
+        courses = []
+        for row in result:
+            course_dict = row[0].__dict__
+            course_dict["category_name"] = row[1]
+            courses.append(course_dict)
+        return courses
+
+    async def get_courses_by_user_with_category(self, user_id: int) -> List[Dict[str, Any]]:
+        """Получение курсов пользователя с информацией о категориях"""
+        stmt = (
+            select(Course, Category.name.label("category_name"))
+            .join(Category, Course.category_id == Category.category_id)
+            .where(Course.user_id == user_id)
+        )
+        result = await self.session.execute(stmt)
+        courses = []
+        for row in result:
+            course_dict = row[0].__dict__
+            course_dict["category_name"] = row[1]
+            courses.append(course_dict)
+        return courses
+
     async def get_course_with_details(self, course_id: int) -> Optional[Dict[str, Any]]:
-        """Получение курса с дополнительной информацией о пользователе и категории"""
-        # Вариант 1: Используем joins
+        """Получение курса с дополнительной информацией"""
         stmt = (
             select(Course, User.user_name, Category.name.label("category_name"))
             .join(User, Course.user_id == User.user_id)
@@ -197,7 +247,6 @@ class CourseRepository(BaseRepository[Course]):
             
         course, user_name, category_name = row
         
-        # Создаем расширенный словарь курса
         course_dict = {
             "course_id": course.course_id,
             "user_id": course.user_id,
@@ -234,6 +283,22 @@ class CourseRepository(BaseRepository[Course]):
         stmt = select(Course).where(Course.course_name.ilike(search_term))
         result = await self.session.execute(stmt)
         return list(result.scalars().all())
+
+    async def search_by_name_with_category(self, query: str) -> List[Dict[str, Any]]:
+        """Поиск курсов по названию с информацией о категориях"""
+        search_term = f"%{query}%"
+        stmt = (
+            select(Course, Category.name.label("category_name"))
+            .join(Category, Course.category_id == Category.category_id)
+            .where(Course.course_name.ilike(search_term))
+        )
+        result = await self.session.execute(stmt)
+        courses = []
+        for row in result:
+            course_dict = row[0].__dict__
+            course_dict["category_name"] = row[1]
+            courses.append(course_dict)
+        return courses
 
 
 class LessonRepository(BaseRepository[Lesson]):
