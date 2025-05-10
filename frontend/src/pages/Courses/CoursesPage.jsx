@@ -39,14 +39,14 @@ const CoursesPage = () => {
             <Header activePage="courses" />
 
             <div className="content-wrapper">
-                <div className="courses-header">
+                <div className="page-header">
                     <h1 className="page-title">Все курсы</h1>
                 </div>
 
                 <CoursesList />
 
                 <div className={`add-course-container ${isButtonVisible ? 'visible' : ''}`}>
-                    <button className="add-course-button" onClick={handleAddCourse}>
+                    <button className="add-button" onClick={handleAddCourse}>
                         Добавить курс
                     </button>
                 </div>

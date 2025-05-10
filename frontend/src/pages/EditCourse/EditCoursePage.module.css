@@ -1,0 +1,11 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #212426, #17151C);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+} 
