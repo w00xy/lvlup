@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query, UploadFile, File, Form
 from typing import List, Optional
+from datetime import datetime
 
 from database.dependencies import get_course_repository, get_category_repository, get_lesson_repository
 from database.repositories import CourseRepository, CategoryRepository, LessonRepository
@@ -17,7 +18,6 @@ async def create_course(
     category_id: int = Form(...),
     start_date: Optional[str] = Form(None),
     end_date: Optional[str] = Form(None),
-    description: Optional[str] = Form(None),
     image: Optional[UploadFile] = File(None),
     current_user: User = Depends(get_current_user),
     course_repo: CourseRepository = Depends(get_course_repository),
@@ -37,15 +37,18 @@ async def create_course(
         "course_name": course_name,
         "category_id": category_id,
         "user_id": current_user.user_id,
+        "start_date": datetime.now() if not start_date else datetime.fromisoformat(start_date),
     }
     
-    # Добавляем опциональные поля
-    if start_date:
-        course_data["start_date"] = start_date
+    # Добавляем дату окончания только если она указана
     if end_date:
-        course_data["end_date"] = end_date
-    if description:
-        course_data["description"] = description
+        try:
+            course_data["end_date"] = datetime.fromisoformat(end_date)
+        except ValueError:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Неверный формат даты окончания. Используйте ISO формат (YYYY-MM-DD или YYYY-MM-DDTHH:MM:SS)"
+            )
     
     # Сохраняем изображение, если оно предоставлено
     if image:
@@ -81,9 +84,9 @@ async def read_courses(
         filters["user_id"] = user_id
         
     if filters:
-        courses = await course_repo.filter(**filters)
+        courses = await course_repo.filter_with_category(**filters)
     else:
-        courses = await course_repo.get_multi(skip=skip, limit=limit)
+        courses = await course_repo.get_multi_with_category(skip=skip, limit=limit)
     return courses
 
 @courses_router.get("/my", response_model=List[CourseResponse])
@@ -92,7 +95,7 @@ async def read_my_courses(
     course_repo: CourseRepository = Depends(get_course_repository)
 ):
     """Получение курсов текущего пользователя"""
-    courses = await course_repo.get_courses_by_user(current_user.user_id)
+    courses = await course_repo.get_courses_by_user_with_category(current_user.user_id)
     return courses
 
 @courses_router.get("/{course_id}", response_model=CourseDetailResponse)
@@ -244,7 +247,7 @@ async def search_courses(
     course_repo: CourseRepository = Depends(get_course_repository)
 ):
     """Поиск курсов по названию"""
-    courses = await course_repo.search_by_name(query)
+    courses = await course_repo.search_by_name_with_category(query)
     return courses
 
 @courses_router.post("/{course_id}/image", response_model=CourseResponse)
