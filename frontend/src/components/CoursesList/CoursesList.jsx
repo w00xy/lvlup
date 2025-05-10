@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './coursesList.css';
 import CourseCard from '../CourseCard/CourseCard';
 import { useNavigate } from 'react-router-dom';
+import { getCourses } from '../../services/courseService';
 
 // Временные моки для курсов
 const defaultCourses = [
@@ -56,7 +57,22 @@ const defaultCourses = [
     },
 ];
 
-const CoursesList = ({ courses = defaultCourses }) => {
+const CoursesList = () => {
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const courses = await getCourses();
+                console.log(courses);
+                setCourses(courses);
+            } catch (error) {
+                console.error('Ошибка при загрузке курсов:', error);
+            }
+        };
+        fetchCourses();
+    }, []);
+
     const navigate = useNavigate();
     const handleCardClick = (id) => {
         navigate(`/courses/${id}`);
@@ -66,13 +82,13 @@ const CoursesList = ({ courses = defaultCourses }) => {
             <div className="courses-list">
                 {courses.map(course => (
                     <CourseCard
-                        key={course.id}
-                        id={course.id}
-                        title={course.title}
-                        date={course.date}
-                        image={course.image}
-                        category={course.category}
-                        onClick={() => handleCardClick(course.id)}
+                        key={course.course_id}
+                        id={course.course_id}
+                        title={course.course_name}
+                        date={course.start_date}
+                        image={course.course_image}
+                        category={course.category_name}
+                        onClick={() => handleCardClick(course.course_id)}
                     />
                 ))}
             </div>

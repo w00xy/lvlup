@@ -22,15 +22,19 @@
     position: relative;
 }
 
-.courses-header {
-    margin: 5rem 0;
-    position: sticky;
+.page-header {
+    margin-top: 6.5rem;
+    margin-bottom: 3rem;
     top: 120px;
     z-index: 2;
 }
 
+.sticky {
+    position: sticky;
+}
+
 .page-title {
-    font-size: 36px;
+    font-size: 2rem;
     font-weight: bold;
 }
 
@@ -99,7 +103,7 @@
     bottom: 2.5rem;
 }
 
-.add-course-button {
+.add-button {
     padding: 1rem 2rem;
     background: transparent;
     color: #FFFFFF;
@@ -111,9 +115,10 @@
     transition: all 0.3s ease;
     font-family: 'Montserrat', sans-serif;
     white-space: nowrap;
+    max-width: fit-content;
 }
 
-.add-course-button:hover {
+.add-button:hover {
     background: #FFFFFF;
     color: #17151C;
 }
