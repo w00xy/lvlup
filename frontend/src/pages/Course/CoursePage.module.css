@@ -3,8 +3,8 @@
 .container {
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(to bottom, #212426, #17151C);
-    color: #FFFFFF;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -13,6 +13,8 @@
     margin: 0 auto;
     padding: 40px;
     padding-top: 100px;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -29,7 +31,7 @@
     width: 200px;
     height: 200px;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: var(--border-radius-lg);
 }
 
 .details {
@@ -46,7 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    color: #aaa;
+    color: var(--color-text-secondary);
     font-size: 16px;
 }
 
@@ -58,8 +60,8 @@
 }
 
 .lessonCard {
-    background: #1E1E1E;
-    border-radius: 12px;
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius-lg);
     padding: 16px;
     display: flex;
     align-items: center;
@@ -69,14 +71,14 @@
 }
 
 .lessonCard:hover {
-    background: #2A2A2A;
+    background-color: var(--color-bg-light);
 }
 
 .lessonImage {
     width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
 }
 
 .lessonInfo {
@@ -90,12 +92,12 @@
 }
 
 .lessonDesc {
-    color: #aaa;
+    color: var(--color-text-secondary);
     font-size: 14px;
 }
 
 .lessonMore {
-    color: #aaa;
+    color: var(--color-text-secondary);
     font-size: 20px;
     padding: 0 8px;
 }
@@ -106,9 +108,9 @@
     margin: 0 auto;
     padding: 12px 32px;
     background: transparent;
-    border: 2px solid #FFFFFF;
-    border-radius: 50px;
-    color: #FFFFFF;
+    border: 2px solid var(--color-text-primary);
+    border-radius: var(--border-radius-xl);
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -117,8 +119,8 @@
 }
 
 .addButton:hover {
-    background: #FFFFFF;
-    color: #17151C;
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
 }
 
 @media (max-width: 1024px) {
@@ -145,4 +147,54 @@
     .title {
         font-size: 28px;
     }
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 1.5rem;
+    color: var(--color-text-tertiary);
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: var(--color-text-error);
+    text-align: center;
+}
+
+.retryButton, .backButton {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem 1.5rem;
+    background-color: var(--color-bg-accent);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.retryButton:hover, .backButton:hover {
+    transform: scale(1.05);
+    background-color: var(--color-bg-accent-hover);
+}
+
+.noLessons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    font-size: 1.1rem;
+    color: var(--color-text-tertiary);
+    text-align: center;
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius-md);
+    margin: 2rem 0;
 } 

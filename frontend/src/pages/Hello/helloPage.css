@@ -3,12 +3,12 @@
 .hello-container {
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(to bottom, #212426, #17151C);
+    background-color: var(--color-bg-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    color: #FFFFFF;
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -41,7 +41,7 @@
 .logo-text {
     font-size: 36px;
     font-weight: bold;
-    color: #FFFFFF;
+    color: var(--color-text-primary);
 }
 
 .content-container {
@@ -63,7 +63,7 @@
 }
 
 .accent {
-    color: #4CAF50;
+    color: var(--color-text-accent);
 }
 
 .buttons-container {
@@ -77,17 +77,17 @@
     padding: 1rem 4rem;
     font-size: 22px;
     font-weight: 500;
-    border: 2px solid #FFFFFF;
+    border: 2px solid var(--color-text-primary);
     border-radius: 50px;
     background: transparent;
-    color: #FFFFFF;
+    color: var(--color-text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .auth-button:hover {
-    background: #FFFFFF;
-    color: #17151C;
+    background: var(--color-text-primary);
+    color: var(--color-bg-primary);
 }
 
 /* Адаптивная верстка */

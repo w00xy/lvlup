@@ -1,23 +1,93 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
+import { getCourseData, getCourseLessons } from '../../services/courseService';
 import styles from './CoursePage.module.css';
-
-const mockLessons = [
-    { id: 1, title: 'Урок 1', desc: 'Как создавать переменные', image: '/134a02b0ac6a07801d64d610443fe194.png' },
-    { id: 2, title: 'Урок 2', desc: 'Как создавать переменные', image: '/134a02b0ac6a07801d64d610443fe194.png' },
-    { id: 3, title: 'Урок 3', desc: 'Как создавать переменные', image: '/134a02b0ac6a07801d64d610443fe194.png' },
-    { id: 4, title: 'Урок 4', desc: 'Как создавать переменные', image: '/134a02b0ac6a07801d64d610443fe194.png' },
-    { id: 5, title: 'Урок 5', desc: 'Как создавать переменные', image: '/134a02b0ac6a07801d64d610443fe194.png' },
-    { id: 6, title: 'Урок 6', desc: 'Как создавать переменные', image: '/134a02b0ac6a07801d64d610443fe194.png' },
-];
 
 const CoursePage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [course, setCourse] = useState(null);
+    const [lessons, setLessons] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchCourseData = async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                
+                // Получаем данные курса
+                const courseData = await getCourseData(id);
+                setCourse(courseData);
+                
+                // Получаем уроки курса
+                const lessonsData = await getCourseLessons(id);
+                setLessons(lessonsData);
+            } catch (err) {
+                console.error('Ошибка при загрузке курса:', err);
+                setError('Не удалось загрузить данные курса. Пожалуйста, попробуйте позже.');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        
+        fetchCourseData();
+    }, [id]);
+
     const handleLessonClick = (lessonId) => {
         navigate(`/courses/${id}/lessons/${lessonId}`);
     };
+
+    const handleAddLesson = () => {
+        navigate(`/courses/${id}/lessons/create`);
+    };
+
+    if (isLoading) {
+        return (
+            <div className={styles.container}>
+                <Header />
+                <div className={styles.contentWrapper}>
+                    <div className={styles.loading}>Загрузка...</div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className={styles.container}>
+                <Header />
+                <div className={styles.contentWrapper}>
+                    <div className={styles.error}>{error}</div>
+                    <button 
+                        className={styles.retryButton}
+                        onClick={() => window.location.reload()}
+                    >
+                        Попробовать снова
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (!course) {
+        return (
+            <div className={styles.container}>
+                <Header />
+                <div className={styles.contentWrapper}>
+                    <div className={styles.error}>Курс не найден</div>
+                    <button 
+                        className={styles.backButton}
+                        onClick={() => navigate('/courses')}
+                    >
+                        Вернуться к списку курсов
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.container}>
@@ -25,31 +95,52 @@ const CoursePage = () => {
             <div className={styles.contentWrapper}>
                 <div className={styles.header}>
                     <div className={styles.info}>
-                        <img src="/134a02b0ac6a07801d64d610443fe194.png" alt="Course" className={styles.courseImage} />
+                        <img 
+                            src={course.course_image ? `${import.meta.env.VITE_API_URL}/${course.course_image}` : "/placeholder-course.png"} 
+                            alt={course.course_name} 
+                            className={styles.courseImage} 
+                        />
                         <div className={styles.details}>
-                            <h1 className={styles.title}>Курс Python</h1>
+                            <h1 className={styles.title}>{course.course_name}</h1>
                             <div className={styles.meta}>
-                                <span>Категория: Программирование</span>
-                                <span>Начало:</span>
+                                <span>Категория: {course.category_name}</span>
+                                <span>Начало: {new Date(course.start_date).toLocaleDateString()}</span>
+                                {course.end_date && (
+                                    <span>Окончание: {new Date(course.end_date).toLocaleDateString()}</span>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className={styles.lessonsGrid}>
-                    {mockLessons.map(lesson => (
-                        <div key={lesson.id} className={styles.lessonCard} onClick={() => handleLessonClick(lesson.id)}>
-                            <img src={lesson.image} alt={lesson.title} className={styles.lessonImage} />
-                            <div className={styles.lessonInfo}>
-                                <h3 className={styles.lessonTitle}>{lesson.title}</h3>
-                                <p className={styles.lessonDesc}>{lesson.desc}</p>
+                {lessons.length > 0 ? (
+                    <div className={styles.lessonsGrid}>
+                        {lessons.map(lesson => (
+                            <div 
+                                key={lesson.lesson_id} 
+                                className={styles.lessonCard} 
+                                onClick={() => handleLessonClick(lesson.lesson_id)}
+                            >
+                                <img 
+                                    src={lesson.lesson_image ? `${import.meta.env.VITE_API_URL}/${lesson.lesson_image}` : "/placeholder-lesson.png"}
+                                    alt={lesson.title} 
+                                    className={styles.lessonImage} 
+                                />
+                                <div className={styles.lessonInfo}>
+                                    <h3 className={styles.lessonTitle}>Урок {lesson.lesson_num}</h3>
+                                    <p className={styles.lessonDesc}>{lesson.description || 'Нет описания'}</p>
+                                </div>
+                                <div className={styles.lessonMore}>•••</div>
                             </div>
-                            <div className={styles.lessonMore}>•••</div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className={styles.noLessons}>
+                        <p>У этого курса пока нет уроков</p>
+                    </div>
+                )}
 
-                <button className={styles.addButton}>
+                <button className="add-button self-center" onClick={handleAddLesson}>
                     Добавить урок
                 </button>
             </div>

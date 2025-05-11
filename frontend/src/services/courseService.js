@@ -61,4 +61,34 @@ export const createCourse = async (courseData) => {
         console.error('Ошибка при создании курса:', error);
         throw error;
     }
-}; 
+};
+
+export const getCourseData = async (courseId) => {
+    try {
+        const response = await axios.get(`${API_URL}/courses/${courseId}`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
+        });
+        
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка при получении данных курса:', error);
+        throw error;
+    }
+};
+
+export const getCourseLessons = async (courseId) => {
+    try {
+        const response = await axios.get(`${API_URL}/courses/${courseId}/lessons`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
+        });
+        
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка при получении уроков курса:', error);
+        throw error;
+    }
+};

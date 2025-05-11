@@ -1,15 +1,17 @@
 .course-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius-md);
     padding: 1.5rem;
     display: flex;
     justify-content: space-between;
     transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 4px 8px var(--color-shadow);
 }
 
 .course-card:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: var(--color-bg-light);
+    box-shadow: 0 8px 16px var(--color-shadow-darker);
 }
 
 .course-info {
@@ -24,23 +26,49 @@
 
 .course-date {
     font-size: 14px;
-    color: #aaa;
+    color: var(--color-text-secondary);
     margin-bottom: 0.5rem;
 }
 
 .course-category {
     display: inline-block;
     padding: 4px 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    background-color: var(--color-bg-info);
+    border-radius: var(--border-radius-xl);
+    color: var(--color-text-accent);
     font-size: 12px;
-    color: #fff;
+    font-weight: 500;
+}
+
+.course-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .course-image img {
     width: 80px;
     height: 80px;
     object-fit: contain;
+}
+
+.course-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lessons-count {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.lessons-icon {
+    font-size: 16px;
 }
 
 @media (max-width: 480px) {

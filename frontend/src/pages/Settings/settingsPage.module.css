@@ -1,123 +1,154 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 .container {
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(to bottom, #212426, #17151C);
-    color: #FFFFFF;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
 }
 
 .content {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 40px;
+    padding: 2rem;
+    padding-top: 100px;
 }
 
-.settingsGroup {
+.header {
+    margin-bottom: 3rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.description {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.section {
+    margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--color-text-primary);
+}
+
+.form {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    max-width: 600px;
-    padding-top: 70px;
+    gap: 1.5rem;
 }
 
-.inputGroup {
+.formGroup {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.5rem;
 }
 
-.inputGroup label {
-    font-size: 16px;
+.formLabel {
+    font-size: 0.875rem;
     font-weight: 500;
-    color: #FFFFFF;
+    color: var(--color-text-primary);
 }
 
-.searchContainer {
-    display: flex;
-    gap: 16px;
-}
-
-.searchInput {
-    flex: 1;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #FFFFFF;
+.formInput {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    outline: none;
+    font-size: 1rem;
     transition: all 0.2s;
 }
 
-.searchInput:focus {
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.15);
+.formInput:focus {
+    outline: none;
+    border-color: var(--color-border-accent);
 }
 
-.searchInput::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+.formInput::placeholder {
+    color: var(--color-text-tertiary);
 }
 
-.searchButton {
-    padding: 12px 32px;
+.saveButton {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--color-text-primary);
+    border-radius: var(--border-radius-xl);
     background: transparent;
-    border: 2px solid #FFFFFF;
-    border-radius: 50px;
-    color: #FFFFFF;
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-start;
+}
+
+.saveButton:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+.dangerSection {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-md);
+    background-color: var(--color-bg-secondary);
+}
+
+.dangerTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text-error);
+}
+
+.dangerDescription {
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.dangerButton {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--color-border-error);
+    border-radius: var(--border-radius-md);
+    background-color: transparent;
+    color: var(--color-text-error);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.searchButton:hover {
-    background: #FFFFFF;
-    color: #17151C;
-}
-
-.themeSelect {
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: #FFFFFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
-}
-
-.themeSelect:focus {
-    border-color: rgba(255, 255, 255, 0.4);
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-.themeSelect option {
-    background: #17151C;
-    color: #FFFFFF;
+.dangerButton:hover {
+    background-color: var(--color-bg-error);
 }
 
 @media (max-width: 768px) {
     .content {
-        padding: 20px;
+        padding: 1rem;
+        padding-top: 90px;
     }
-
-    .searchContainer {
-        flex-direction: column;
+    
+    .title {
+        font-size: 1.5rem;
     }
-
-    .searchButton {
-        width: 100%;
+    
+    .sectionTitle {
+        font-size: 1.125rem;
     }
 }

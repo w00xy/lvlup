@@ -13,6 +13,13 @@ import CoursePage from './pages/Course/CoursePage.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import SettingsPage from './pages/Settings/SettingsPage.jsx'
 import ReportsPage from './pages/Reports/ReportsPage.jsx'
+import CreateLessonPage from './pages/CreateLesson/CreateLessonPage'
+import LessonPage from './pages/Lesson/LessonPage'
+import EditLessonPage from './pages/EditLesson/EditLessonPage'
+import { initTheme } from './utils/theme'
+
+// Инициализируем тему при загрузке приложения
+initTheme();
 
 // Создаем компонент-обертку для главной страницы
 const HomePage = () => {
@@ -72,6 +79,9 @@ createRoot(document.getElementById('root')).render(
             </ProtectedRoute>
           } 
         />
+        <Route path="/courses/:courseId/lessons/create" element={<CreateLessonPage />} />
+        <Route path="/courses/:courseId/lessons/:lessonId" element={<LessonPage />} />
+        <Route path="/courses/:courseId/lessons/:lessonId/edit" element={<EditLessonPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

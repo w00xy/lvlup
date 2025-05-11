@@ -3,8 +3,8 @@
 .courses-container {
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(to bottom, #212426, #17151C);
-    color: #FFFFFF;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
@@ -51,41 +51,6 @@
     gap: 2rem;
 }
 
-.course-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.course-card:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.course-info {
-    flex: 1;
-}
-
-.course-title {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.course-date {
-    font-size: 14px;
-    color: #aaa;
-}
-
-.course-image img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-}
-
 /* Add button */
 .add-course-container {
     position: fixed;
@@ -94,7 +59,7 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    border-radius: 50px;
+    border-radius: var(--border-radius-xl);
     transition: bottom 0.3s ease;
     backdrop-filter: blur(5px);
 }
@@ -106,9 +71,9 @@
 .add-button {
     padding: 1rem 2rem;
     background: transparent;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
-    border-radius: 50px;
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-text-primary);
+    border-radius: var(--border-radius-xl);
     font-size: 18px;
     font-weight: 500;
     cursor: pointer;
@@ -119,8 +84,8 @@
 }
 
 .add-button:hover {
-    background: #FFFFFF;
-    color: #17151C;
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
 }
 
 /* Media queries */

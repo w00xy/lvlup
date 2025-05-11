@@ -53,9 +53,7 @@ const CreateCoursePage = () => {
     <div className={styles.container}>
       <Header />
       <main className="content-wrapper">
-        <div className="page-header">
-          <h1 className="page-title">Создание курса</h1>
-        </div>
+        <h1 className="page-title add-top-margin">Создание курса</h1>
         
         {error && (
           <div className={styles.errorAlert}>

@@ -3,10 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import './header.css';
 import logo_small from '../../assets/logo_small.png';
 import { removeToken } from '../../utils/auth';
+import { getTheme, toggleTheme as toggleThemeUtil } from '../../utils/theme';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 const Header = () => {
     const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
+    const [theme, setTheme] = useState(getTheme());
     const [userData, setUserData] = useState({
         name: '',
         email: ''
@@ -21,6 +24,11 @@ const Header = () => {
             email: userEmail || 'email@example.com'
         });
     }, []);
+
+    const toggleTheme = () => {
+        const newTheme = toggleThemeUtil();
+        setTheme(newTheme);
+    };
 
     const handleLogout = () => {
         removeToken();
@@ -49,42 +57,52 @@ const Header = () => {
                     </nav>
                 </div>
 
-                <div 
-                    className="account-wrapper"
-                    onMouseEnter={() => setShowDropdown(true)}
-                    onMouseLeave={() => setShowDropdown(false)}
-                >
-                    <div className="account-container">
-                        <div className="account-icon">
-                            <span className="account-initial">
-                                {userData.name[0]?.toUpperCase() || 'U'}
-                            </span>
-                        </div>
-                    </div>
-
-                    {showDropdown && (
-                        <div className="account-dropdown">
-                            <div className="dropdown-header">
-                                <div className="dropdown-header-content" onClick={handleSettingsClick}>
-                                    <span className="user-name">
-                                        {userData.name}
-                                    </span>
-                                <button 
-                                    className="user-email"
-                                >
-                                        {userData.email}
-                                    </button>
-                                </div>
+                <div className="header-right">
+                    <button 
+                        className="theme-toggle" 
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? 'Включить светлую тему' : 'Включить темную тему'}
+                    >
+                        {theme === 'dark' ? <FaSun /> : <FaMoon />}
+                    </button>
+                    
+                    <div 
+                        className="account-wrapper"
+                        onMouseEnter={() => setShowDropdown(true)}
+                        onMouseLeave={() => setShowDropdown(false)}
+                    >
+                        <div className="account-container">
+                            <div className="account-icon">
+                                <span className="account-initial">
+                                    {userData.name[0]?.toUpperCase() || 'U'}
+                                </span>
                             </div>
-                            <div className="dropdown-divider"></div>
-                            <button 
-                                className="logout-button"
-                                onClick={handleLogout}
-                            >
-                                Выйти из аккаунта
-                            </button>
                         </div>
-                    )}
+
+                        {showDropdown && (
+                            <div className="account-dropdown">
+                                <div className="dropdown-header">
+                                    <div className="dropdown-header-content" onClick={handleSettingsClick}>
+                                        <span className="user-name">
+                                            {userData.name}
+                                        </span>
+                                    <button 
+                                        className="user-email"
+                                    >
+                                            {userData.email}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="dropdown-divider"></div>
+                                <button 
+                                    className="logout-button"
+                                    onClick={handleLogout}
+                                >
+                                    Выйти из аккаунта
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </header>
