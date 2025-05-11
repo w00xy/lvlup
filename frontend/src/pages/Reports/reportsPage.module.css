@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+.container {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, #212426, #17151C);
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.totalCount {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 32px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.searchSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.searchSection label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.searchContainer {
+    display: flex;
+    gap: 16px;
+}
+
+.searchInput {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchInput:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.searchButton {
+    padding: 12px 32px;
+    background: transparent;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.searchButton:hover {
+    background: #FFFFFF;
+    color: #17151C;
+}
+
+.filterGroup {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+}
+
+.filterItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filterItem label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.select {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+.select:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.printButton {
+    padding: 12px 32px;
+    background: transparent;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: fit-content;
+}
+
+.printButton:hover {
+    background: #FFFFFF;
+    color: #17151C;
+}
+
+.tableContainer {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.table th {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.columnHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sortIcon {
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .filterGroup {
+        flex-wrap: wrap;
+    }
+
+    .filterItem {
+        min-width: calc(50% - 12px);
+    }
+
+    .printButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 20px;
+    }
+
+    .searchContainer {
+        flex-direction: column;
+    }
+
+    .searchButton {
+        width: 100%;
+    }
+
+    .filterGroup {
+        flex-direction: column;
+    }
+
+    .filterItem {
+        width: 100%;
+    }
+}
