@@ -36,6 +36,13 @@
     flex: 1;
 }
 
+.titleContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
 .title {
     font-size: 36px;
     font-weight: bold;
@@ -97,7 +104,19 @@
 .lessonMore {
     color: #aaa;
     font-size: 20px;
-    padding: 0 8px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lessonMore:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .addButton {
@@ -119,6 +138,26 @@
 .addButton:hover {
     background: #FFFFFF;
     color: #17151C;
+}
+
+.editButton {
+    color: #aaa;
+    font-size: 20px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+}
+
+.editButton:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 1024px) {

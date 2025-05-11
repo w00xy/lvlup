@@ -15,8 +15,18 @@ const mockLessons = [
 const CoursePage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    
     const handleLessonClick = (lessonId) => {
         navigate(`/courses/${id}/lessons/${lessonId}`);
+    };
+
+    const handleEditClick = (e, lessonId) => {
+        e.stopPropagation(); // Предотвращаем всплытие события клика
+        navigate(`/courses/${id}/lessons/${lessonId}/edit`);
+    };
+
+    const handleCourseEditClick = () => {
+        navigate(`/courses/${id}/edit`);
     };
 
     return (
@@ -27,7 +37,15 @@ const CoursePage = () => {
                     <div className={styles.info}>
                         <img src="/134a02b0ac6a07801d64d610443fe194.png" alt="Course" className={styles.courseImage} />
                         <div className={styles.details}>
-                            <h1 className={styles.title}>Курс Python</h1>
+                            <div className={styles.titleContainer}>
+                                <h1 className={styles.title}>Курс Python</h1>
+                                <button 
+                                    className={styles.editButton}
+                                    onClick={handleCourseEditClick}
+                                >
+                                    •••
+                                </button>
+                            </div>
                             <div className={styles.meta}>
                                 <span>Категория: Программирование</span>
                                 <span>Начало:</span>
@@ -44,7 +62,12 @@ const CoursePage = () => {
                                 <h3 className={styles.lessonTitle}>{lesson.title}</h3>
                                 <p className={styles.lessonDesc}>{lesson.desc}</p>
                             </div>
-                            <div className={styles.lessonMore}>•••</div>
+                            <div 
+                                className={styles.lessonMore} 
+                                onClick={(e) => handleEditClick(e, lesson.id)}
+                            >
+                                •••
+                            </div>
                         </div>
                     ))}
                 </div>

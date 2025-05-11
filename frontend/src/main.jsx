@@ -13,6 +13,8 @@ import CoursePage from './pages/Course/CoursePage.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 import SettingsPage from './pages/Settings/SettingsPage.jsx'
 import ReportsPage from './pages/Reports/ReportsPage.jsx'
+import EditLessonPage from './pages/EditLesson/EditLessonPage.jsx'
+import EditCoursePage from './pages/EditCourse/EditCoursePage.jsx'
 
 // Создаем компонент-обертку для главной страницы
 const HomePage = () => {
@@ -69,6 +71,22 @@ createRoot(document.getElementById('root')).render(
           element={
             <ProtectedRoute>
               <SettingsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path='/courses/:courseId/lessons/:lessonId/edit' 
+          element={
+            <ProtectedRoute>
+              <EditLessonPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path='/courses/:id/edit' 
+          element={
+            <ProtectedRoute>
+              <EditCoursePage />
             </ProtectedRoute>
           } 
         />
