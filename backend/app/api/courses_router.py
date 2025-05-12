@@ -119,13 +119,88 @@ async def update_course(
     category_id: Optional[int] = Form(None),
     start_date: Optional[str] = Form(None),
     end_date: Optional[str] = Form(None),
-    description: Optional[str] = Form(None),
     image: Optional[UploadFile] = File(None),
     current_user: User = Depends(get_current_user),
     course_repo: CourseRepository = Depends(get_course_repository),
     category_repo: CategoryRepository = Depends(get_category_repository)
 ):
     """Обновление курса с возможностью загрузки нового изображения"""
+    # Проверяем существование курса
+    course = await course_repo.get(course_id)
+    if course is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Курс не найден"
+        )
+    
+    # Проверяем права доступа
+    if course.user_id != current_user.user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="У вас нет прав на изменение этого курса"
+        )
+    
+    # Проверяем категорию, если она меняется
+    if category_id is not None:
+        category = await category_repo.get(category_id)
+        if category is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Указанная категория не найдена"
+            )
+    
+    # Собираем данные для обновления
+    update_data = {}
+    if course_name is not None:
+        update_data["course_name"] = course_name
+    if category_id is not None:
+        update_data["category_id"] = category_id
+    
+    # Обрабатываем даты только если они не пустые
+    if start_date is not None and start_date.strip() != "":
+        update_data["start_date"] = start_date
+    if end_date is not None and end_date.strip() != "":
+        update_data["end_date"] = end_date
+    
+    # Обрабатываем изображение, если оно предоставлено
+    if image:
+        if image.size > MAX_IMAGE_SIZE:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Изображение слишком большое. Максимальный размер: {MAX_IMAGE_SIZE // (1024*1024)} МБ"
+            )
+        
+        # Удаляем старое изображение
+        if course.course_image:
+            remove_image(course.course_image)
+        
+        # Сохраняем новое изображение
+        image_path = await save_upload_file(image, subfolder="courses")
+        update_data["course_image"] = image_path
+    
+    # Если нет данных для обновления, возвращаем текущий курс
+    if not update_data:
+        return course
+    
+    # Обновляем курс
+    updated_course = await course_repo.update(course_id, update_data)
+    return updated_course
+
+# Дублирующий POST маршрут для обхода проблем с CORS preflight запросами
+@courses_router.post("/{course_id}", response_model=CourseResponse)
+async def update_course_post(
+    course_id: int,
+    course_name: Optional[str] = Form(None),
+    category_id: Optional[int] = Form(None),
+    start_date: Optional[str] = Form(None),
+    end_date: Optional[str] = Form(None),
+    description: Optional[str] = Form(None),
+    image: Optional[UploadFile] = File(None),
+    current_user: User = Depends(get_current_user),
+    course_repo: CourseRepository = Depends(get_course_repository),
+    category_repo: CategoryRepository = Depends(get_category_repository)
+):
+    """Обновление курса через POST запрос (для обхода CORS проблем)"""
     # Проверяем существование курса
     course = await course_repo.get(course_id)
     if course is None:

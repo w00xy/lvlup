@@ -171,15 +171,13 @@ const LessonForm = ({
         </div>
       </div>
 
-      <div className={styles.buttonContainer}>
         <button 
           type="submit" 
-          className={styles.submitButton}
+          className="add-button self-center"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Отправка...' : submitButtonText}
         </button>
-      </div>
     </form>
   )
 }

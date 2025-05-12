@@ -65,13 +65,30 @@ export const createCourse = async (courseData) => {
 
 export const getCourseData = async (courseId) => {
     try {
+        if (!courseId) {
+            throw new Error('ID курса не указан');
+        }
+        
         const response = await axios.get(`${API_URL}/courses/${courseId}`, {
             headers: {
                 'Authorization': `Bearer ${getToken()}`
             }
         });
         
-        return response.data;
+        // Обработка данных изображения
+        const data = response.data;
+        
+        // Проверяем что получили объект
+        if (!data || typeof data !== 'object') {
+            throw new Error('Получены некорректные данные от сервера');
+        }
+        
+        // Добавляем полный URL к изображению, если он есть
+        if (data.course_image) {
+            data.image_url = data.course_image;
+        }
+        
+        return data;
     } catch (error) {
         console.error('Ошибка при получении данных курса:', error);
         throw error;
@@ -89,6 +106,48 @@ export const getCourseLessons = async (courseId) => {
         return response.data;
     } catch (error) {
         console.error('Ошибка при получении уроков курса:', error);
+        throw error;
+    }
+};
+
+export const updateCourse = async (courseId, courseData) => {
+    try {
+        // Если courseData уже является FormData, используем его как есть
+        let formData;
+        
+        if (courseData instanceof FormData) {
+            formData = courseData;
+        } else {
+            // Иначе создаем новый объект FormData
+            formData = new FormData();
+            
+            // Добавляем текстовые поля
+            if (courseData.course_name) {
+                formData.append('course_name', courseData.course_name);
+            }
+            
+            if (courseData.category_id) {
+                formData.append('category_id', courseData.category_id);
+            }
+            
+            // Добавляем изображение, если оно есть и не является строкой (URL)
+            if (courseData.image && typeof courseData.image !== 'string') {
+                formData.append('image', courseData.image);
+            }
+        }
+        
+        // Отправляем запрос без указания Content-Type, браузер сам добавит его с boundary
+        const response = await axios.put(`${API_URL}/courses/${courseId}`, formData, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        return response.data;
+        
+    } catch (error) {
+        console.error('Ошибка при обновлении курса:', error);
         throw error;
     }
 };

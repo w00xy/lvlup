@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import { getCourseData, getCourseLessons } from '../../services/courseService';
+import { FaEdit } from 'react-icons/fa';
 import styles from './CoursePage.module.css';
 
 const CoursePage = () => {
@@ -42,6 +43,10 @@ const CoursePage = () => {
 
     const handleAddLesson = () => {
         navigate(`/courses/${id}/lessons/create`);
+    };
+
+    const handleEditCourse = () => {
+        navigate(`/courses/${id}/edit`);
     };
 
     if (isLoading) {
@@ -101,7 +106,16 @@ const CoursePage = () => {
                             className={styles.courseImage} 
                         />
                         <div className={styles.details}>
-                            <h1 className={styles.title}>{course.course_name}</h1>
+                            <div className={styles.titleRow}>
+                                <h1 className={styles.title}>{course.course_name}</h1>
+                                <button 
+                                    className={styles.editButton}
+                                    onClick={handleEditCourse}
+                                    title="Редактировать курс"
+                                >
+                                    <FaEdit />
+                                </button>
+                            </div>
                             <div className={styles.meta}>
                                 <span>Категория: {course.category_name}</span>
                                 <span>Начало: {new Date(course.start_date).toLocaleDateString()}</span>

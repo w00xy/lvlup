@@ -3,13 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import './header.css';
 import logo_small from '../../assets/logo_small.png';
 import { removeToken } from '../../utils/auth';
-import { getTheme, toggleTheme as toggleThemeUtil } from '../../utils/theme';
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 const Header = () => {
     const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
-    const [theme, setTheme] = useState(getTheme());
     const [userData, setUserData] = useState({
         name: '',
         email: ''
@@ -24,11 +22,6 @@ const Header = () => {
             email: userEmail || 'email@example.com'
         });
     }, []);
-
-    const toggleTheme = () => {
-        const newTheme = toggleThemeUtil();
-        setTheme(newTheme);
-    };
 
     const handleLogout = () => {
         removeToken();
@@ -58,14 +51,6 @@ const Header = () => {
                 </div>
 
                 <div className="header-right">
-                    <button 
-                        className="theme-toggle" 
-                        onClick={toggleTheme}
-                        aria-label={theme === 'dark' ? 'Включить светлую тему' : 'Включить темную тему'}
-                    >
-                        {theme === 'dark' ? <FaSun /> : <FaMoon />}
-                    </button>
-                    
                     <div 
                         className="account-wrapper"
                         onMouseEnter={() => setShowDropdown(true)}

@@ -187,4 +187,34 @@
 .dateInput:focus {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-border-accent);
+}
+
+.imageContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changeImageBtn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #5d87ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.changeImageBtn:hover {
+  background-color: #4a6ecc;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
 } 

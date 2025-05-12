@@ -1,11 +1,150 @@
 .container {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #212426, #17151C);
-  color: white;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
+.contentWrapper {
+  margin-top: 5rem;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+  max-width: 800px;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background-color: #e0e0e0;
+}
+
+.backButton span {
+  font-size: 14px;
+}
+
+.errorAlert {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffebee;
+  color: #d32f2f;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Обертка для центрирования изображения */
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+/* Контейнер для квадратного изображения */
+.imageContainer {
+  position: relative;
+  width: 200px; /* Фиксированная ширина */
+  height: 200px; /* Равная высота для квадрата */
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Само изображение */
+.courseImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Для корректного заполнения квадрата */
+}
+
+/* Наложение при наведении */
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.imageContainer:hover .imageOverlay {
+  opacity: 1;
+}
+
+/* Кнопка изменения изображения */
+.changeImageButton {
+  background-color: #4B5EFC; /* Цвет из дизайна сайта на скриншоте */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.changeImageButton:hover {
+  background-color: #3A4DDC; /* Немного темнее при наведении */
+}
+
+/* Скрытый input для загрузки файла */
+.fileInput {
+  display: none;
+}
+
+/* Заглушка, если изображение отсутствует */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: pointer;
+}
+
+.placeholder:hover {
+  background-color: #e0e0e0;
 } 

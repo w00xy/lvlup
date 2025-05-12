@@ -16,6 +16,7 @@ import ReportsPage from './pages/Reports/ReportsPage.jsx'
 import CreateLessonPage from './pages/CreateLesson/CreateLessonPage'
 import LessonPage from './pages/Lesson/LessonPage'
 import EditLessonPage from './pages/EditLesson/EditLessonPage'
+import EditCoursePage from './pages/EditCourse/EditCoursePage'
 import { initTheme } from './utils/theme'
 
 // Инициализируем тему при загрузке приложения
@@ -60,6 +61,14 @@ createRoot(document.getElementById('root')).render(
           element={
             <ProtectedRoute>
               <CoursePage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path='/courses/:id/edit' 
+          element={
+            <ProtectedRoute>
+              <EditCoursePage />
             </ProtectedRoute>
           } 
         />

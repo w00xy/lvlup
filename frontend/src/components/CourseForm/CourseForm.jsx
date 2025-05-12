@@ -35,7 +35,8 @@ const CourseForm = ({
   }, 
   onSubmit, 
   submitButtonText = 'Добавить курс',
-  isSubmitting = false 
+  isSubmitting = false,
+  hideImageUpload = false // Новый параметр
 }) => {
   // Вместо зависимости от initialData в useEffect, используем ключ
   const [formData, setFormData] = useState({ ...initialData })
@@ -133,12 +134,8 @@ const CourseForm = ({
       isValid = false
     }
 
-    // Проверка изображения (опционально, можно убрать если изображение не обязательно)
-    if (!formData.image) {
-      errors.image = 'Необходимо загрузить изображение'
-      isValid = false
-    }
-
+    // Изображение не является обязательным полем при редактировании
+    
     setValidationErrors(errors)
     return isValid
   }
@@ -181,34 +178,51 @@ const CourseForm = ({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.formElement}>
-        <div className={styles.imageUpload}>
-          {formData.image ? (
-            <img 
-              src={typeof formData.image === 'string' 
-                ? formData.image 
-                : URL.createObjectURL(formData.image)} 
-              alt="Preview" 
-              className={styles.preview}
-            />
-          ) : (
-            <div className={styles.placeholder}>
-              <span>Фото</span>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className={styles.fileInput}
-              />
-            </div>
-          )}
+      {!hideImageUpload && (
+        <div className={styles.formElement}>
+          <div className={styles.imageUpload}>
+            {formData.image ? (
+              <div className={styles.imageContainer}>
+                <img 
+                  src={typeof formData.image === 'string' 
+                    ? formData.image 
+                    : URL.createObjectURL(formData.image)} 
+                  alt="Preview" 
+                  className={styles.preview}
+                />
+                <button 
+                  type="button" 
+                  className={styles.changeImageBtn}
+                  onClick={() => {
+                    // Сбрасываем изображение, чтобы отобразить загрузчик
+                    setFormData(prev => ({
+                      ...prev,
+                      image: null
+                    }));
+                  }}
+                >
+                  Изменить изображение
+                </button>
+              </div>
+            ) : (
+              <div className={styles.placeholder}>
+                <span>Фото</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className={styles.fileInput}
+                />
+              </div>
+            )}
+          </div>
+          <div className={styles.errorContainer}>
+            {validationErrors.image && (
+              <div className={styles.imageErrorMessage}>{validationErrors.image}</div>
+            )}
+          </div>
         </div>
-        <div className={styles.errorContainer}>
-          {validationErrors.image && (
-            <div className={styles.imageErrorMessage}>{validationErrors.image}</div>
-          )}
-        </div>
-      </div>
+      )}
 
       <div className={styles.formElement}>
         <input

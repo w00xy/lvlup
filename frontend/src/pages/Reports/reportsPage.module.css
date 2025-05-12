@@ -169,21 +169,35 @@
     font-weight: 600;
     color: var(--color-text-secondary);
     cursor: pointer;
+    vertical-align: middle;
 }
 
+
 .columnHeader {
-    display: flex;
     align-items: center;
     gap: 8px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .sortIcon {
     font-size: 12px;
     opacity: 0.5;
+    margin-left: 4px;
 }
 
 .table tbody tr:hover {
     background-color: var(--color-bg-light);
+}
+
+.table thead tr {
+    height: 48px;
+    vertical-align: middle;
+}
+
+.table th {
+    vertical-align: middle;
 }
 
 @media (max-width: 1024px) {
